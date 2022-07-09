@@ -52,6 +52,15 @@ def object_destruction(object_2_delete):
     bpy.data.objects.remove(current_object, do_unlink=True)
 
 
+def Track(target_vector, Vector):
+    if not isinstance(target_vector, Vector):
+        target_vector = Vector(target_vector)
+	
+	camera_location = camera_object.location
+    direction = target_vector - camera_location
+    quat = direction.to_track_quat('-Z', 'Y')
+    camera_object.rotation_euler = quat.to_euler()
+
 #making sure the camera tracks the newly imported object
 def Track_To( current_object):
     
